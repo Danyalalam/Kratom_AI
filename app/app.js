@@ -26,6 +26,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form data
     const formData = {};
 
+    // IP Location
+    async function getLocation(){
+        try{
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
+            return {
+                ip: data.ip,
+                city: data.city,
+                region: data.region,
+                country: data.country_name
+            }
+        }
+        catch(error){
+            console.error('Error fetching location data:', error);
+            return null;
+        }
+        
+    }
+
     // Initialize the progress bar
     function updateProgress(currentStep) {
         const totalSteps = progressSteps.length;
@@ -189,13 +208,18 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingOverlay.style.display = 'flex';
             
             try {
-                // Prepare data for API
+                
+                const locationData = await getLocation();
+
                 const apiData = {
                     age: formData.age,
                     weight: formData.weightKg, // Already converted to kg
                     pain_level: formData.painLevel,
-                    body_type: formData.bodyType
+                    body_type: formData.bodyType,
+                    location_data: locationData
                 };
+
+                console.log("api response: ", apiData);
                 
                 // Call API
                 const response = await fetch('http://localhost:8000/recommend', {
