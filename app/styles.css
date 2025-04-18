@@ -1,0 +1,523 @@
+:root {
+    --primary-color: #4CAF50;
+    --primary-dark: #388E3C;
+    --primary-light: #C8E6C9;
+    --secondary-color: #FFC107;
+    --text-color: #212121;
+    --text-light: #757575;
+    --background-color: #f9f9f9;
+    --card-color: #ffffff;
+    --error-color: #d32f2f;
+    --success-color: #388e3c;
+    --border-radius: 8px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-bottom: 2rem;
+}
+
+.progress-bar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+}
+
+.progress {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    background: var(--primary-color);
+    width: 0%;
+    transition: var(--transition);
+    z-index: 1;
+}
+
+.progress-step {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border: 3px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-light);
+    position: relative;
+    z-index: 2;
+    transition: var(--transition);
+}
+
+.progress-step.active {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: #fff;
+}
+
+.progress-step.complete {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.progress-text {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Questionnaire */
+.questionnaire-container {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+.step h2 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-size: 1.5rem;
+}
+
+.description {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+/* Form Elements */
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+input[type="number"],
+input[type="email"],
+input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+label {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-left: 8px;
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.8rem;
+    margin-top: 5px;
+    min-height: 20px;
+}
+
+/* Height Input */
+.height-input {
+    display: flex;
+    gap: 10px;
+}
+
+.height-feet, .height-inches {
+    flex: 1;
+    position: relative;
+}
+
+/* Body Type Selection */
+.body-type-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.body-type-option input[type="radio"] {
+    display: none;
+}
+
+.body-type-option label {
+    display: block;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.body-type-option input[type="radio"]:checked + label {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+}
+
+.body-type-option .icon {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.body-type-option .name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.body-type-option .description {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+/* Blood Type Selection */
+.blood-type-container {
+    margin-bottom: 1.5rem;
+}
+
+.blood-type-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.blood-type-option {
+    flex: 1;
+}
+
+.blood-type-option.wide {
+    flex: 2;
+}
+
+.blood-type-option input[type="radio"] {
+    display: none;
+}
+
+.blood-type-option label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    margin: 0;
+}
+
+.blood-type-option input[type="radio"]:checked + label {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+/* Pain Scale */
+.pain-level-container {
+    margin-bottom: 1.5rem;
+}
+
+.pain-scale {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.pain-level {
+    flex: 1;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.pain-level:hover {
+    background-color: #f0f0f0;
+}
+
+.pain-level.selected {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.pain-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+/* Email and Checkbox */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-top: 4px;
+}
+
+.checkbox-group label {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-left: 0;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.next-btn, .submit-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.next-btn:hover, .submit-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.back-btn {
+    background-color: transparent;
+    color: var(--text-light);
+    border: 1px solid #ddd;
+}
+
+.back-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Results Container */
+.results-container {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.results-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.recommendation-card {
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.recommendation-dosage, 
+.recommendation-info, 
+.recommendation-insights {
+    margin-bottom: 1.5rem;
+}
+
+.recommendation-dosage h3,
+.recommendation-info h3,
+.recommendation-insights h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.result-value {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.disclaimer {
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+.disclaimer h4 {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.disclaimer p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.restart-btn {
+    background-color: #f0f0f0;
+    color: var(--text-color);
+}
+
+.restart-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.save-btn {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #e0a800;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--primary-light);
+    border-radius: 50%;
+    border-top: 5px solid var(--primary-color);
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.disclaimer-footer {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .body-type-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .pain-scale {
+        flex-wrap: wrap;
+    }
+    
+    .pain-level {
+        flex-basis: 18%;
+        margin-bottom: 5px;
+    }
+    
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .back-btn, .next-btn, .submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .back-btn {
+        order: 2;
+    }
+    
+    .next-btn, .submit-btn {
+        order: 1;
+    }
+}

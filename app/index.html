@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kratom AI Recommendation System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kratom AI</h1>
+            <p>Personalized Recommendations</p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+                <div class="progress-step active" data-step="1">1</div>
+                <div class="progress-step" data-step="2">2</div>
+                <div class="progress-step" data-step="3">3</div>
+                <div class="progress-step" data-step="4">4</div>
+                <div class="progress-step" data-step="5">5</div>
+                <div class="progress-step" data-step="6">6</div>
+                <div class="progress-step" data-step="7">7</div>
+            </div>
+            <div class="progress-text">Step <span id="current-step">1</span> of 7</div>
+        </div>
+
+        <div class="questionnaire-container">
+            <!-- Step 1: Age -->
+            <div class="step active" data-step="1">
+                <h2>What's your age?</h2>
+                <p class="description">We need to verify you're at least 18 years old.</p>
+                <div class="input-group">
+                    <input type="number" id="age" min="18" placeholder="Age (18+)" required>
+                    <div class="error-message" id="age-error"></div>
+                </div>
+                <div class="buttons">
+                    <button class="next-btn" data-next="2">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 2: Height -->
+            <div class="step" data-step="2">
+                <h2>What's your height?</h2>
+                <div class="input-group height-input">
+                    <div class="height-feet">
+                        <input type="number" id="height-feet" min="3" max="8" placeholder="Feet" required>
+                        <label for="height-feet">ft</label>
+                    </div>
+                    <div class="height-inches">
+                        <input type="number" id="height-inches" min="0" max="11" placeholder="Inches" required>
+                        <label for="height-inches">in</label>
+                    </div>
+                    <div class="error-message" id="height-error"></div>
+                </div>
+                <div class="buttons">
+                    <button class="back-btn" data-prev="1"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="3">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 3: Weight -->
+            <div class="step" data-step="3">
+                <h2>What's your weight?</h2>
+                <div class="input-group">
+                    <input type="number" id="weight" min="70" max="500" placeholder="Weight in pounds" required>
+                    <label for="weight">lbs</label>
+                    <div class="error-message" id="weight-error"></div>
+                </div>
+                <div class="buttons">
+                    <button class="back-btn" data-prev="2"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="4">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 4: Body Type -->
+            <div class="step" data-step="4">
+                <h2>What's your body type?</h2>
+                <div class="body-type-container">
+                    <div class="body-type-option">
+                        <input type="radio" id="ectomorph" name="body-type" value="ectomorph">
+                        <label for="ectomorph">
+                            <div class="icon"><i class="fas fa-male"></i></div>
+                            <div class="name">Slim/Ectomorph</div>
+                            <div class="description">Lean, long limbs, fast metabolism</div>
+                        </label>
+                    </div>
+                    <div class="body-type-option">
+                        <input type="radio" id="mesomorph" name="body-type" value="mesomorph">
+                        <label for="mesomorph">
+                            <div class="icon"><i class="fas fa-male"></i></div>
+                            <div class="name">Athletic/Mesomorph</div>
+                            <div class="description">Muscular, medium frame, responsive to exercise</div>
+                        </label>
+                    </div>
+                    <div class="body-type-option">
+                        <input type="radio" id="endomorph" name="body-type" value="endomorph">
+                        <label for="endomorph">
+                            <div class="icon"><i class="fas fa-male"></i></div>
+                            <div class="name">Full/Endomorph</div>
+                            <div class="description">Soft, round, stores fat easily</div>
+                        </label>
+                    </div>
+                    <div class="body-type-option">
+                        <input type="radio" id="average" name="body-type" value="average">
+                        <label for="average">
+                            <div class="icon"><i class="fas fa-male"></i></div>
+                            <div class="name">Average</div>
+                            <div class="description">Mix of body types, balanced</div>
+                        </label>
+                    </div>
+                    <div class="error-message" id="body-type-error"></div>
+                </div>
+                <div class="buttons">
+                    <button class="back-btn" data-prev="3"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="5">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 5: Blood Type -->
+            <div class="step" data-step="5">
+                <h2>What's your blood type?</h2>
+                <p class="description">Select your blood type if you know it. If not, you can select "Unknown".</p>
+                <div class="blood-type-container">
+                    <div class="blood-type-row">
+                        <div class="blood-type-option">
+                            <input type="radio" id="a-pos" name="blood-type" value="A+">
+                            <label for="a-pos">A+</label>
+                        </div>
+                        <div class="blood-type-option">
+                            <input type="radio" id="a-neg" name="blood-type" value="A-">
+                            <label for="a-neg">A-</label>
+                        </div>
+                    </div>
+                    <div class="blood-type-row">
+                        <div class="blood-type-option">
+                            <input type="radio" id="b-pos" name="blood-type" value="B+">
+                            <label for="b-pos">B+</label>
+                        </div>
+                        <div class="blood-type-option">
+                            <input type="radio" id="b-neg" name="blood-type" value="B-">
+                            <label for="b-neg">B-</label>
+                        </div>
+                    </div>
+                    <div class="blood-type-row">
+                        <div class="blood-type-option">
+                            <input type="radio" id="ab-pos" name="blood-type" value="AB+">
+                            <label for="ab-pos">AB+</label>
+                        </div>
+                        <div class="blood-type-option">
+                            <input type="radio" id="ab-neg" name="blood-type" value="AB-">
+                            <label for="ab-neg">AB-</label>
+                        </div>
+                    </div>
+                    <div class="blood-type-row">
+                        <div class="blood-type-option">
+                            <input type="radio" id="o-pos" name="blood-type" value="O+">
+                            <label for="o-pos">O+</label>
+                        </div>
+                        <div class="blood-type-option">
+                            <input type="radio" id="o-neg" name="blood-type" value="O-">
+                            <label for="o-neg">O-</label>
+                        </div>
+                    </div>
+                    <div class="blood-type-row">
+                        <div class="blood-type-option wide">
+                            <input type="radio" id="unknown" name="blood-type" value="unknown" checked>
+                            <label for="unknown">Unknown</label>
+                        </div>
+                    </div>
+                    <div class="error-message" id="blood-type-error"></div>
+                </div>
+                <div class="buttons">
+                    <button class="back-btn" data-prev="4"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="6">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 6: Pain Level -->
+            <div class="step" data-step="6">
+                <h2>What's your pain level?</h2>
+                <p class="description">Rate your current pain level on a scale from 1 to 10.</p>
+                <div class="pain-level-container">
+                    <div class="pain-scale">
+                        <div class="pain-level" data-value="1">1</div>
+                        <div class="pain-level" data-value="2">2</div>
+                        <div class="pain-level" data-value="3">3</div>
+                        <div class="pain-level" data-value="4">4</div>
+                        <div class="pain-level" data-value="5">5</div>
+                        <div class="pain-level" data-value="6">6</div>
+                        <div class="pain-level" data-value="7">7</div>
+                        <div class="pain-level" data-value="8">8</div>
+                        <div class="pain-level" data-value="9">9</div>
+                        <div class="pain-level" data-value="10">10</div>
+                    </div>
+                    <div class="pain-labels">
+                        <span>Mild</span>
+                        <span>Moderate</span>
+                        <span>Severe</span>
+                    </div>
+                    <input type="hidden" id="pain-level" value="">
+                    <div class="error-message" id="pain-level-error"></div>
+                </div>
+                <div class="buttons">
+                    <button class="back-btn" data-prev="5"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="7">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 7: Email -->
+            <div class="step" data-step="7">
+                <h2>Almost there!</h2>
+                <p class="description">Enter your email to receive your personalized recommendation.</p>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Your email address" required>
+                    <div class="error-message" id="email-error"></div>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" checked>
+                    <label for="newsletter">Subscribe to our newsletter for updates and information.</label>
+                </div>
+                <div class="buttons">
+                    <button class="back-btn" data-prev="6"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="submit-btn" id="submit-btn">Get My Recommendation <i class="fas fa-check"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section (initially hidden) -->
+        <div class="results-container" style="display: none;">
+            <div class="results-header">
+                <h2>Your Personalized Kratom Recommendation</h2>
+                <p>Based on your profile, we've created a tailored recommendation just for you.</p>
+            </div>
+            
+            <div class="recommendation-card">
+                <div class="recommendation-dosage">
+                    <h3>Recommended Dosage</h3>
+                    <div id="dosage-result" class="result-value">Loading...</div>
+                </div>
+                
+                <div class="recommendation-info">
+                    <h3>Additional Information</h3>
+                    <p id="additional-info">Loading...</p>
+                </div>
+                
+                <div class="recommendation-insights">
+                    <h3>AI Insights</h3>
+                    <p id="ai-insights">Loading...</p>
+                </div>
+            </div>
+            
+            <div class="disclaimer">
+                <h4>Important Disclaimer</h4>
+                <p>These recommendations are not medical advice. Kratom is not FDA-approved for any medical use. Always consult with a healthcare professional before using any new supplement. Start with a lower dose than recommended if you're new to Kratom.</p>
+            </div>
+            
+            <div class="buttons">
+                <button class="restart-btn" id="restart-btn"><i class="fas fa-redo"></i> Start Over</button>
+                <button class="save-btn" id="save-btn"><i class="fas fa-download"></i> Save Results</button>
+            </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="spinner"></div>
+            <p>Analyzing your data for the perfect recommendation...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Kratom AI. All rights reserved.</p>
+        <p class="disclaimer-footer">For educational purposes only. Not intended to diagnose, treat, cure, or prevent any disease.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
