@@ -208,18 +208,21 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingOverlay.style.display = 'flex';
             
             try {
-                
                 const locationData = await getLocation();
 
                 const apiData = {
                     age: formData.age,
-                    weight: formData.weightKg, // Already converted to kg
+                    weight: formData.weightKg,
+                    height: formData.height,
                     pain_level: formData.painLevel,
                     body_type: formData.bodyType,
+                    blood_type: formData.bloodType || 'unknown',
+                    email: formData.email,
+                    newsletter: formData.newsletter,
                     location_data: locationData
                 };
 
-                console.log("api response: ", apiData);
+                console.log("api request data:", apiData);
                 
                 // Call API
                 const response = await fetch('http://localhost:8000/recommend', {
@@ -229,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: JSON.stringify(apiData),
                 });
-                
+
                 if (!response.ok) {
                     throw new Error('API request failed');
                 }
@@ -246,6 +249,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('dosage-result').textContent = result.dosage;
                     document.getElementById('additional-info').textContent = result.additional_info || 'No additional information available.';
                     document.getElementById('ai-insights').textContent = result.ai_insights || 'No AI insights available.';
+                    
+                    // Handle sponsored vendor information
+                    const sponsoredVendorSection = document.getElementById('sponsored-vendor');
+                    if (result.sponsored_info) {
+                        document.getElementById('vendor-name').textContent = result.sponsored_info.vendor;
+                        document.getElementById('vendor-description').textContent = result.sponsored_info.description;
+                        document.getElementById('vendor-link').href = result.sponsored_info.url;
+                        sponsoredVendorSection.style.display = 'block';
+                    } else {
+                        sponsoredVendorSection.style.display = 'none';
+                    }
                 }, 1500); // Delay for user experience
                 
             } catch (error) {
