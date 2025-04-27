@@ -3,11 +3,10 @@ from typing import Optional, Dict, Any
 from pydantic import BaseModel
 from datetime import datetime
 import logging
-
+from config import settings
 # Configure logging
 logger = logging.getLogger(__name__)
 
-MONGODB_URL = "mongodb://localhost:27017"
 database_name = "kratom_ai"
 
 class LocationData(BaseModel):
@@ -45,7 +44,7 @@ class Database:
     async def connect_db(cls):
         try:
             if cls.client is None:
-                cls.client = AsyncIOMotorClient(MONGODB_URL)
+                cls.client = AsyncIOMotorClient(settings.MONGODB_URL)
                 cls.db = cls.client[database_name]
                 # Create a unique index on email field
                 await cls.db.users.create_index("email", unique=True)
