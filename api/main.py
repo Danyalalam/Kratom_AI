@@ -44,6 +44,10 @@ async def shutdown_event():
     """Close MongoDB connection on shutdown"""
     await Database.close_db()
 
+@app.get("/health")
+def get_health():
+    return {"status": "ok"}
+
 @app.post("/recommend", response_model=RecommendationResponse)
 async def get_recommendation(
     request: RecommendationRequest,
