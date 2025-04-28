@@ -19,6 +19,13 @@ class Settings(BaseSettings):
     CORS_ALLOW_METHODS: list = ["*"]
     CORS_ALLOW_HEADERS: list = ["*"]
 
+    #SMTP configs
+    EMAIL_FROM: str
+    SMTP_USERNAME: str
+    SMTP_PASSWORD: str
+    SMTP_PORT: str
+    SMTP_SERVER: str
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
