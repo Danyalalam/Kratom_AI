@@ -1,6 +1,6 @@
 from typing import Dict, Any
 from api.models import RecommendationRequest, RecommendationResponse
-from services.ai_service import GeminiAIService
+from services.ai_service import OpenAIService # Import the correct AI service
 import logging
 
 # Configure logging
@@ -8,7 +8,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class RecommendationService:
-    def __init__(self, ai_service: GeminiAIService):
+    # Update the type hint here
+    def __init__(self, ai_service: OpenAIService): 
         self.ai_service = ai_service
     
     def _get_base_recommendation(self, age: int, weight: float, pain_level: int, body_type: str) -> str:
@@ -74,7 +75,7 @@ class RecommendationService:
         }
         
         try:
-            # Get AI-enhanced information
+            # Get AI-enhanced information - This call remains the same
             ai_response = await self.ai_service.enhance_recommendation(base_recommendation, user_data)
             
             return RecommendationResponse(

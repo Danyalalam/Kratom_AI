@@ -10,9 +10,9 @@ class Settings(BaseSettings):
     API_DESCRIPTION: str = "API for recommending Kratom dosage based on user characteristics"
     API_VERSION: str = "0.1.0"
     
-    # Gemini API configuration
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL: str = "gemini-1.5-pro"
+    # OpenAI API configuration
+    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    OPENAI_MODEL: str = "gpt-4.1-nano" # Specify the desired OpenAI model
     
     # CORS settings
     CORS_ORIGINS: list = ["*"]
