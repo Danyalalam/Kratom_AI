@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     MONGODB_URL: str 
     
     # OpenAI API configuration
-    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    OPENAI_API_KEY: str 
     OPENAI_MODEL: str = "gpt-4.1-nano" # Specify the desired OpenAI model
     
     # CORS settings
