@@ -8,7 +8,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class RecommendationService:
-    # Update the type hint here
     def __init__(self, ai_service: OpenAIService): 
         self.ai_service = ai_service
         # Mapping of sponsored strains and their vendor information
@@ -35,7 +34,7 @@ class RecommendationService:
             }
         }
     
-    def _get_base_recommendation(self, age: int, weight: float, pain_level: int, body_type: str) -> tuple[str, dict]:
+    def _get_base_recommendation(self, age: int, weight: float, pain_level: int, body_type: str, sex: str) -> tuple[str, dict]:
         """Rule-based logic for Kratom dosage recommendation"""
         # Base dosage calculation based on weight
         base_dosage = weight * 0.03  # 0.03g per kg
@@ -44,15 +43,19 @@ class RecommendationService:
         if pain_level >= 8:
             dosage_multiplier = 1.5
             strain = "Red Maeng Da"
+            doses_per_day = 3
         elif pain_level >= 5:
             dosage_multiplier = 1.2
             strain = "Red Bali"
+            doses_per_day = 2
         elif pain_level >= 3:
             dosage_multiplier = 1.0
             strain = "Green Malay"
+            doses_per_day = 2
         else:
             dosage_multiplier = 0.8
             strain = "White Thai"
+            doses_per_day = 1
         
         # Adjust for body type
         if body_type == "ectomorph":
@@ -71,9 +74,12 @@ class RecommendationService:
             age_multiplier = 0.9
         else:
             age_multiplier = 1.0
+            
+        # Adjust for sex (females typically need slightly lower doses)
+        sex_multiplier = 0.85 if sex.lower() == "female" else 1.0
         
         # Calculate final dosage
-        final_dosage = round(base_dosage * dosage_multiplier * body_multiplier * age_multiplier, 1)
+        final_dosage = round(base_dosage * dosage_multiplier * body_multiplier * age_multiplier * sex_multiplier, 1)
         
         # Safety cap
         if final_dosage > 5:
@@ -82,7 +88,11 @@ class RecommendationService:
         # Get sponsored info if available
         sponsored_info = self.sponsored_strains.get(strain)
         
-        return f"{final_dosage}g of {strain} Kratom", sponsored_info
+        # Format the recommendation with daily dosage info
+        daily_dosage = round(final_dosage * doses_per_day, 1)
+        recommendation = f"{final_dosage}g of {strain} Kratom per dose ({doses_per_day}x daily, total {daily_dosage}g/day)"
+        
+        return recommendation, sponsored_info
     
     async def get_recommendation(self, request_data: RecommendationRequest) -> RecommendationResponse:
         """Get a recommendation based on user data, enhanced by AI"""
@@ -90,18 +100,25 @@ class RecommendationService:
             request_data.age,
             request_data.weight,
             request_data.pain_level,
-            request_data.body_type
+            request_data.body_type,
+            request_data.sex
         )
         
         user_data = {
             "age": request_data.age,
             "weight": request_data.weight,
             "pain_level": request_data.pain_level,
-            "body_type": request_data.body_type
+            "body_type": request_data.body_type,
+            "sex": request_data.sex,
+            "height": {
+                "feet": request_data.height['feet'],
+                "inches": request_data.height['inches']
+            },
+            "blood_type": request_data.blood_type
         }
         
         try:
-            # Get AI-enhanced information - This call remains the same
+            # Get AI-enhanced information
             ai_response = await self.ai_service.enhance_recommendation(base_recommendation, user_data)
             
             return RecommendationResponse(

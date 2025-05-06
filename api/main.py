@@ -2,13 +2,14 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.models import RecommendationRequest, RecommendationResponse
-from api.dependencies import get_recommendation_service, get_email_service
+from api.dependencies import get_recommendation_service, get_email_service, cleanup_ai_service
 from api.database import Database, UserData, LocationData
 from services.recommendation import RecommendationService
 from services.email_service import EmailService
 from config import settings
 import logging
 from datetime import datetime
+import aiohttp
 
 # Configure logging
 logging.basicConfig(
@@ -41,8 +42,9 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    """Close MongoDB connection on shutdown"""
+    """Cleanup resources on shutdown"""
     await Database.close_db()
+    await cleanup_ai_service()
 
 @app.get("/health")
 def get_health():
@@ -72,6 +74,7 @@ async def get_recommendation(
             height=request.height,
             weight={"kg": request.weight, "lbs": request.weight * 2.20462},  # Convert kg to lbs
             body_type=request.body_type,
+            sex=request.sex,  # Changed from sex_type to sex
             blood_type=request.blood_type,
             pain_level=request.pain_level,
             email=request.email,
@@ -104,6 +107,21 @@ async def get_recommendation(
     except Exception as e:
         logger.error(f"Error in recommendation endpoint: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/news")
+async def get_news():
+    """Fetch kratom-related news articles"""
+    try:
+        url = f"https://newsapi.org/v2/everything?q=kratom&language=en&sortBy=publishedAt&apiKey={settings.NEWS_API_KEY}"
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                if response.status != 200:
+                    raise HTTPException(status_code=response.status, detail="Failed to fetch news")
+                data = await response.json()
+                return data
+    except Exception as e:
+        logger.error(f"Error fetching news: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch news")
 
 # Health check endpoint
 @app.get("/health")

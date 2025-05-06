@@ -13,6 +13,9 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str 
     OPENAI_MODEL: str = "gpt-4.1-nano" # Specify the desired OpenAI model
     
+    # News API configuration
+    NEWS_API_KEY: str
+    
     # CORS settings
     CORS_ORIGINS: list = ["*"]
     CORS_ALLOW_CREDENTIALS: bool = True

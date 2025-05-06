@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kratom AI Recommendation System</title>
+    <title>Kratom AI - Get Your Personalized Recommendation</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,23 @@
 <body>
     <div class="container">
         <header>
-            <h1>Kratom AI</h1>
+            <nav class="nav-container">
+                <div class="logo-section">
+                    <h1>Kratom AI</h1>
+                </div>
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="brands.html">Brands</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </nav>
             <p>Personalized Recommendations</p>
         </header>
 
@@ -45,8 +61,35 @@
                 </div>
             </div>
 
-            <!-- Step 2: Height -->
+            <!-- Step 2: Sex -->
             <div class="step" data-step="2">
+                <h2>What's your sex?</h2>
+                <p class="description">This helps us provide more accurate dosage recommendations.</p>
+                <div class="sex-type-container">
+                    <div class="sex-type-option">
+                        <input type="radio" id="male" name="sex-type" value="male">
+                        <label for="male">
+                            <div class="icon"><i class="fas fa-mars"></i></div>
+                            <div class="name">Male</div>
+                        </label>
+                    </div>
+                    <div class="sex-type-option">
+                        <input type="radio" id="female" name="sex-type" value="female">
+                        <label for="female">
+                            <div class="icon"><i class="fas fa-venus"></i></div>
+                            <div class="name">Female</div>
+                        </label>
+                    </div>
+                    <div class="error-message" id="sex-type-error"></div>
+                </div>
+                <div class="buttons">
+                    <button class="back-btn" data-prev="1"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="3">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 3: Height -->
+            <div class="step" data-step="3">
                 <h2>What's your height?</h2>
                 <div class="input-group height-input">
                     <div class="height-feet">
@@ -60,13 +103,13 @@
                     <div class="error-message" id="height-error"></div>
                 </div>
                 <div class="buttons">
-                    <button class="back-btn" data-prev="1"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button class="next-btn" data-next="3">Next <i class="fas fa-arrow-right"></i></button>
+                    <button class="back-btn" data-prev="2"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="4">Next <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Step 3: Weight -->
-            <div class="step" data-step="3">
+            <!-- Step 4: Weight -->
+            <div class="step" data-step="4">
                 <h2>What's your weight?</h2>
                 <div class="input-group">
                     <input type="number" id="weight" min="70" max="500" placeholder="Weight in pounds" required>
@@ -74,13 +117,13 @@
                     <div class="error-message" id="weight-error"></div>
                 </div>
                 <div class="buttons">
-                    <button class="back-btn" data-prev="2"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button class="next-btn" data-next="4">Next <i class="fas fa-arrow-right"></i></button>
+                    <button class="back-btn" data-prev="3"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="5">Next <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Step 4: Body Type -->
-            <div class="step" data-step="4">
+            <!-- Step 5: Body Type -->
+            <div class="step" data-step="5">
                 <h2>What's your body type?</h2>
                 <div class="body-type-container">
                     <div class="body-type-option">
@@ -118,13 +161,13 @@
                     <div class="error-message" id="body-type-error"></div>
                 </div>
                 <div class="buttons">
-                    <button class="back-btn" data-prev="3"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button class="next-btn" data-next="5">Next <i class="fas fa-arrow-right"></i></button>
+                    <button class="back-btn" data-prev="4"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="6">Next <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Step 5: Blood Type -->
-            <div class="step" data-step="5">
+            <!-- Step 6: Blood Type -->
+            <div class="step" data-step="6">
                 <h2>What's your blood type?</h2>
                 <p class="description">Select your blood type if you know it. If not, you can select "Unknown".</p>
                 <div class="blood-type-container">
@@ -177,13 +220,13 @@
                     <div class="error-message" id="blood-type-error"></div>
                 </div>
                 <div class="buttons">
-                    <button class="back-btn" data-prev="4"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button class="next-btn" data-next="6">Next <i class="fas fa-arrow-right"></i></button>
+                    <button class="back-btn" data-prev="5"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="7">Next <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Step 6: Pain Level -->
-            <div class="step" data-step="6">
+            <!-- Step 7: Pain Level -->
+            <div class="step" data-step="7">
                 <h2>What's your pain level?</h2>
                 <p class="description">Rate your current pain level on a scale from 1 to 10.</p>
                 <div class="pain-level-container">
@@ -208,13 +251,13 @@
                     <div class="error-message" id="pain-level-error"></div>
                 </div>
                 <div class="buttons">
-                    <button class="back-btn" data-prev="5"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button class="next-btn" data-next="7">Next <i class="fas fa-arrow-right"></i></button>
+                    <button class="back-btn" data-prev="6"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="next-btn" data-next="8">Next <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Step 7: Email -->
-            <div class="step" data-step="7">
+            <!-- Step 8: Email -->
+            <div class="step" data-step="8">
                 <h2>Almost there!</h2>
                 <p class="description">Enter your email to receive your personalized recommendation.</p>
                 <div class="input-group">
@@ -226,7 +269,7 @@
                     <label for="newsletter">Subscribe to our newsletter for updates and information.</label>
                 </div>
                 <div class="buttons">
-                    <button class="back-btn" data-prev="6"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="back-btn" data-prev="7"><i class="fas fa-arrow-left"></i> Back</button>
                     <button class="submit-btn" id="submit-btn">Get My Recommendation <i class="fas fa-check"></i></button>
                 </div>
             </div>

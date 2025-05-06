@@ -21,6 +21,7 @@ class UserData(BaseModel):
     weight: dict
     body_type: str
     blood_type: str
+    sex: str  # Changed from sex_type to sex
     pain_level: int
     email: str
     newsletter: bool

@@ -14,6 +14,7 @@ class RecommendationRequest(BaseModel):
     pain_level: int = Field(..., ge=1, le=10, description="Pain level from 1-10")
     body_type: str = Field(..., description="User's body type")
     email: str = Field(..., description="User's email address")  # New field
+    sex: str = Field(..., description="User's sex type")  
     height: dict = Field(..., description="User's height in feet and inches")  # New field
     blood_type: str = Field(..., description="User's blood type")  # New field
     newsletter: bool = Field(False, description="Newsletter subscription status")  # New field
