@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Declare fetchKratomNews inside this scope so it has access to blogContainer
             async function fetchKratomNews() {
                 try {
-                    const response = await fetch('http://localhost:8000/news');
+                    const response = await fetch('https://kratom-ai.onrender.com/news');
                     const data = await response.json();
                     
                     if (data.articles && data.articles.length > 0) {
